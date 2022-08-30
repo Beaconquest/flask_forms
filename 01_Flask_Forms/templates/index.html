@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="UTF-8">
         <title>Simple Form</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}" >
     </head>
+
     <body>
         <img src="../static/img/BQ.png">
+
         <br>
+
         <form action="greet" method="post">
             <h3> This is Beaconquest.</h3>
             {% for message in get_flashed_messages() %}
@@ -16,7 +20,11 @@
             <br>
             <input type="text" name="name_input">
             <br>
+            <input type="text" name="address_input">
+            <br>
             <input type="submit" value="submit" id="greet">
         </form>
+
     </body>
+
 </html>
