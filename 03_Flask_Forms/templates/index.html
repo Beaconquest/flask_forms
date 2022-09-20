@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content%}
+    <section>
+        <h1>Coffeepedia</h1>
+
+        <p>Welcome to the Coffeepedia. The perfect list for everything Coffee.</p>
+
+        <h3>List of known coffee</h3>
+
+        <div id="coffee_blend_display">
+            {% for blend in blends %}
+                <li>{{ blend.id}} {{ blend.coffee_name }} : {{ blend.coffee_description }}</li>
+            {% endfor %}
+        </div>
+
+        <h3>Enter a new Blend</h3>
+        <div id="create_coffee_blend">
+            <form method="POST" action="/">
+                {{ template_form.hidden_tag() }}
+                <p>{{ template_form.name.label }}</p>
+                <p>{{ template_form.name() }}</p>
+                <p>{{ template_form.description.label }}</p>
+                <p>{{ template_form.description() }}</p>
+                <p>{{ template_form.submit() }}</p>
+            </form>
+        </div>
+
+    </section>
+{% endblock %}
