@@ -2,4 +2,14 @@
 
 {% block content %}
     <h1>Simple Login Form</h1>
+    <h3>Registered Users</h3>
+    <p>This site displays the registered users.</p>
+    {% if current_users | length == 0 %}
+        <p>**There are currently no registered users** </p>
+    {% endif %}
+
+    {% for user in current_users %}
+        <li>{{ user }}</li>
+    {% endfor %}
+
 {% endblock %}

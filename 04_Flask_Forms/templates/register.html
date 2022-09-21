@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content%}
+    <h1>Simple Registeration Form</h1>
+
+    <h4>Sign Up Below</h4>
+    <br>
+    <form>
+        {{ form.hidden_tag() }}
+        <p>{{ form.username(size=32, placeholder="username") }}</p>
+        <p>{{ form.email(size=32, placeholder="email@email.com") }}</p>
+        <p>{{ form.password(size=32, placeholder="password*&%$#@!a-zA-Z") }}</p>
+        <p>{{ form.password2(size=32, placeholder="re-enter password") }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
