@@ -5,12 +5,39 @@
 
     <h4>Sign Up Below</h4>
     <br>
-    <form>
+    <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>{{ form.username(size=32, placeholder="username") }}</p>
-        <p>{{ form.email(size=32, placeholder="email@email.com") }}</p>
-        <p>{{ form.password(size=32, placeholder="password*&%$#@!a-zA-Z") }}</p>
-        <p>{{ form.password2(size=32, placeholder="re-enter password") }}</p>
+        <p>
+            {{ form.username(size=32, placeholder="username") }}
+            <br>
+            {% for error in form.username.errors %}
+                <span style="color: red;"">[{{ error }}]</span>
+            {% endfor%}
+        </p>
+
+        <p>
+            {{ form.email(size=32, placeholder="email@email.com") }}
+            <br>
+            {% for error in form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor%}
+        </p>
+
+        <p>
+            {{ form.password(size=32, placeholder="password*&%$#@!a-zA-Z") }}
+            <br>
+            {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.password2(size=32, placeholder="re-enter password") }}
+            <br>
+            {% for error in form.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}
