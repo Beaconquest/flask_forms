@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+
+{% if current_user.is_authenticated %}
+    Hello, {{ current_user.username }}
+{% endif %}
