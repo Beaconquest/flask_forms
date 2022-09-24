@@ -1,0 +1,28 @@
+{% extends 'base.html %}
+
+{% block content %}
+    {% if tournament_groups | length == 0 %}
+        <p>There are no tournament forups currently planned. Add one!</p>
+    {% endif %}
+
+    <ul>
+        {% for group in tournament_groups %}
+            <li>{{ group.date }} - {{ group.venue }} - {{ group.weight_class }} - 
+                ID: {{ group.id }} - {{ group.attendees }}</li>
+    </ul>
+    {% endfor %}
+
+    <h1>RSVP to a Tournament:</h1>
+
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.tournament_id.label }}<br>
+            {{ form.tournament_id(size_32) }}<br>
+            {% for error is form.turnament_id.errors %}
+                <span>[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{  form.submit() }}</p>
+    </form>
+{% endblock %}
