@@ -1,5 +1,13 @@
 {% extends 'base.html %}
 
+{% with messages  = get_flashed_messages() %}
+    {% if messages %}
+        {% for messge in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 {% block content %}
     {% if tournament_groups | length == 0 %}
         <p>There are no tournament forups currently planned. Add one!</p>

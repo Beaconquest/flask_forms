@@ -133,8 +133,13 @@ def rvsp(username):
     form = TournamentRSVPForm(csrf_enabled=False)
     if form.validate_on_submit():
         tournament = Tournament.query.filter_by(id=int(form.tournament_id.data)).first()
-        tournament.attendees += f", {username}"
-        db.session.commit()
+        try:
+            tournament.attendees += f", {username}"
+            db.session.commit()
+            host = User.query.filter_by(id=int(tournament.tournament_host_id)).first()
+            flash(f"You successfully RSVP'd to {host.username}'s dinner party on {tournament.date}!")
+        except:
+            flash("Please enter a valid Tournament ID to RSVP!")
     return render_template('rsvp.html', user=user, tournament_groups=tournament_groups, form=form)
 
 @app.route('/')
