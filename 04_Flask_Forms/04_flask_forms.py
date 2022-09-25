@@ -107,7 +107,7 @@ def login():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    tournament_groups = Tournament.query.filter_by(tournamet_host_id=user.id)
+    tournament_groups = Tournament.query.filter_by(tournament_host_id=user.id)
     if tournament_groups is None:
         tournament_groups = []
     form = TournamentInfoForm(csrf_enabled=False)

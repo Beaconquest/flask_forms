@@ -10,7 +10,7 @@
 
 {% block content %}
     {% if tournament_groups | length == 0 %}
-        <p>There are no tournament forups currently planned. Add one!</p>
+        <p style="color: blue;">There are no tournament forups currently planned. Add one!</p>
     {% endif %}
 
     <ul>
@@ -20,17 +20,17 @@
     </ul>
     {% endfor %}
 
-    <h1>RSVP to a Tournament:</h1>
+    <h1 class="blue">RSVP to a Tournament:</h1>
 
     <form method="post">
         {{ form.hidden_tag() }}
         <p>
             {{ form.tournament_id.label }}<br>
             {{ form.tournament_id(size_32) }}<br>
-            {% for error is form.turnament_id.errors %}
-                <span>[{{ error }}]</span>
+            {% for error is form.tournament_id.errors %}
+                <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>{{  form.submit() }}</p>
+        <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}
