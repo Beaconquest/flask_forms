@@ -3,7 +3,7 @@ from logging.config import valid_ident
 from wsgiref.validate import validator
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin, LoginManager, login_required, login_user, current_user
+from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
@@ -75,6 +75,8 @@ if exists('myUserDb.db') == False:
 # register route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = RegistrationForm(csrf_enabled=False)
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
@@ -83,7 +85,7 @@ def register():
         db.session.commit()
     return render_template('register.html', title='Register', form=form)
 
-# user loader
+# user loader callback
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -91,6 +93,8 @@ def load_user(user_id):
 # login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm(csrf_enabled=False)
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -141,6 +145,10 @@ def rvsp(username):
         except:
             flash("Please enter a valid Tournament ID to RSVP!")
     return render_template('rsvp.html', user=user, tournament_groups=tournament_groups, form=form)
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    return "You are not logged in. Click here to get <a href=" + str("/") + "> bank to home page</a>"
 
 @app.route('/')
 def index():
